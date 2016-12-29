@@ -13,3 +13,6 @@ LP_PS1_FILE=~/.config/liquidprompt/vg.ps1
 # Dependencies
 This theme+ps1 is meant to work with liquidprompt shell.  
 LP source: https://github.com/nojhan/liquidprompt
+
+# Example
+![Schema](lp-vg.png?raw=true)
