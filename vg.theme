@@ -83,7 +83,7 @@ LP_COLOR_USER_ALT="$PINK"         # user but not the one who logged in
 LP_COLOR_USER_ROOT="$BOLD_GREEN" # root
 
 # Hostname
-LP_COLOR_HOST="$RED"            # local host
+LP_COLOR_HOST="$BOLD_RED"            # local host
 LP_COLOR_SSH="$BOLD_BLUE"        # connected via SSH
 LP_COLOR_SU="$BOLD_YELLOW"  # connected remotely but in new environment through su/sudo
 LP_COLOR_TELNET="$WARN_RED" # connected via telnet
@@ -95,11 +95,11 @@ LP_COLOR_WRITE="$GREEN"  # have write permission
 LP_COLOR_NOWRITE="$BOLD_RED"  # do not have write permission
 
 # VCS
-LP_COLOR_UP="$GREEN"                # repository is up to date / a push have been made
-LP_COLOR_COMMITS="$YELLOW"          # some commits have not been pushed
+LP_COLOR_UP="$BOLD_GREEN"                # repository is up to date / a push have been made
+LP_COLOR_COMMITS="$CYAN"          # some commits have not been pushed
 LP_COLOR_COMMITS_BEHIND="$WARN_RED" # some commits have not been pushed
 LP_COLOR_CHANGES="$BOLD_RED"        # there is some changes to commit
-LP_COLOR_DIFF="$PURPLE"             # number of lines impacted by current changes
+LP_COLOR_DIFF="$PINK"             # number of lines impacted by current changes
 
 # Battery
 LP_COLOR_CHARGING_ABOVE="$GREEN"      # charging and above threshold
@@ -108,10 +108,10 @@ LP_COLOR_DISCHARGING_ABOVE="$YELLOW"  # discharging but above threshold
 LP_COLOR_DISCHARGING_UNDER="$RED"     # discharging and under threshold
 
 # Time
-LP_COLOR_TIME="$PURPLE"
+LP_COLOR_TIME="$BOLD_BLUE"
 
 # Brackets inside screen/tmux
-LP_COLOR_IN_MULTIPLEXER="$BOLD_BLUE"
+LP_COLOR_IN_MULTIPLEXER="$PURPLE"
 
 # Virtual environment
 LP_COLOR_VIRTUALENV="$CYAN"
