@@ -33,10 +33,20 @@ if [ ! -z $LP_ERR ]; then LP_ERR=${LP_ERR#" "}" "; fi
 
 # add error_code, time, jobs, load and battery
 LP_PS1="${LP_ERR}${LP_PS1_PREFIX}${LP_TIME}${LP_BATT}${LP_LOAD}${LP_JOBS}"
-# add user, host and permissions colon
-LP_PS1="${LP_PS1}${LP_BRACKET_OPEN}${LP_USER}${LP_HOST}${LP_PERM}"
+# add user, host
+LP_PS1="${LP_PS1}${LP_BRACKET_OPEN}${LP_USER}${LP_HOST}"
 
-LP_PS1="${LP_PS1}${LP_PWD}${LP_BRACKET_CLOSE}${LP_VENV}${LP_PROXY}"
+## Custom workaround to change pwd color if no write access.
+# LP_MARK_PERM & LP_PERM & LP_COLOR_WRITE are not used anymore
+if [[ ! -w "${PWD}" ]]
+then
+    local LP_COLOR_PATH_TMP=${LP_COLOR_PATH}
+    LP_COLOR_PATH=${LP_COLOR_NOWRITE}
+    _lp_shorten_path
+    LP_COLOR_PATH=${LP_COLOR_PATH_TMP}
+fi
+
+LP_PS1="${LP_PS1} ${LP_PWD}${LP_BRACKET_CLOSE}${LP_VENV}${LP_PROXY}"
 
 # Add VCS infos
 # If root, the info has not been collected unless LP_ENABLE_VCS_ROOT
