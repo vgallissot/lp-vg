@@ -53,6 +53,27 @@ LP_PS1="${LP_PS1} ${LP_PWD}${LP_BRACKET_CLOSE}${LP_VENV}${LP_PROXY}"
 # is set.
 LP_PS1="${LP_PS1}${LP_VCS}"
 
+# Add custom cloud envs
+# Because I use _CLOUD_ENV to now in which cloud env I am
+if [[ ! -z "$_CLOUD_ENV" ]]
+then
+    case "$_CLOUD_ENV" in
+        prod | production )
+            LP_COLOR_CLOUD_ENV="${LP_COLOR_CLOUD_ENV_CRIT}"
+            ;;
+        stg | staging )
+            LP_COLOR_CLOUD_ENV="${LP_COLOR_CLOUD_ENV_WARN}"
+            ;;
+        root | services )
+            LP_COLOR_CLOUD_ENV="${LP_COLOR_CLOUD_ENV_DANGER}"
+            ;;
+        * )
+            LP_COLOR_CLOUD_ENV="${LP_COLOR_CLOUD_ENV_NOMINAL}"
+            ;;
+    esac
+    LP_PS1="${LP_PS1} [${LP_COLOR_CLOUD_ENV}${LP_MARK_CLOUD} ${_CLOUD_ENV}${NO_COL}]"
+fi
+
 # add prompt mark
 LP_PS1="${LP_PS1}${LP_RUNTIME}${LP_MARK_PREFIX}${LP_COLOR_MARK}${LP_MARK}${LP_PS1_POSTFIX}"
 

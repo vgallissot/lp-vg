@@ -23,7 +23,8 @@ if [[ "$(locale -k LC_CTYPE | sed -n 's/^charmap="\(.*\)"/\1/p')" == *"UTF-8"* ]
     LP_MARK_UNTRACKED="*"      # if git has untracked files
     LP_MARK_STASH="+"          # if git has stashs
     LP_MARK_SHORTEN_PATH=" … " # prompt mark in shortened paths
-    LP_MARK_PERM=" ● "           # separator between host and path
+    LP_MARK_PERM=" ● "         # separator between host and path
+    LP_MARK_CLOUD="🌪"         # prompt mark for cloud environment
 else
     # If charset is anything else, fallback to ASCII chars
     LP_MARK_BATTERY="b"
@@ -40,6 +41,7 @@ else
     LP_MARK_STASH="+"
     LP_MARK_SHORTEN_PATH=" ... "
     LP_MARK_PERM=":"
+    LP_MARK_CLOUD="(^)"
 fi
 
 LP_MARK_BRACKET_OPEN=""  # open bracket
@@ -100,6 +102,12 @@ LP_COLOR_COMMITS="$CYAN"          # some commits have not been pushed
 LP_COLOR_COMMITS_BEHIND="$WARN_RED" # some commits have not been pushed
 LP_COLOR_CHANGES="$BOLD_RED"        # there is some changes to commit
 LP_COLOR_DIFF="$PINK"             # number of lines impacted by current changes
+
+# Cloud env
+LP_COLOR_CLOUD_ENV_NOMINAL="$GREEN"
+LP_COLOR_CLOUD_ENV_WARN="$WARN_RED"
+LP_COLOR_CLOUD_ENV_CRIT="$CRIT_RED"
+LP_COLOR_CLOUD_ENV_DANGER="$DANGER_RED"
 
 # Battery
 LP_COLOR_CHARGING_ABOVE="$GREEN"      # charging and above threshold
