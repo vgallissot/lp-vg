@@ -53,6 +53,14 @@ LP_PS1="${LP_PS1} ${LP_PWD}${LP_BRACKET_CLOSE}${LP_VENV}${LP_PROXY}"
 # is set.
 LP_PS1="${LP_PS1}${LP_VCS}"
 
+# Add TerraForm workspace info
+# Only if directory already handled by TF
+if [[ -d .terraform ]]
+then
+    _TERRAFORM_WORKSPACE=$(terraform workspace show)
+    LP_PS1="${LP_PS1} {${LP_COLOR_TERRAFORM}${LP_MARK_TERRAFORM} ${_TERRAFORM_WORKSPACE}${NO_COL}}"
+fi
+
 # Add custom cloud envs
 # Because I use _CLOUD_ENV to now in which cloud env I am
 if [[ ! -z "$_CLOUD_ENV" ]]

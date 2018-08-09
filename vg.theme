@@ -25,6 +25,7 @@ if [[ "$(locale -k LC_CTYPE | sed -n 's/^charmap="\(.*\)"/\1/p')" == *"UTF-8"* ]
     LP_MARK_SHORTEN_PATH=" … " # prompt mark in shortened paths
     LP_MARK_PERM=" ● "         # separator between host and path
     LP_MARK_CLOUD="🌪"         # prompt mark for cloud environment
+    LP_MARK_TERRAFORM="⯄"      # prompt mark for Terraform Workspace
 else
     # If charset is anything else, fallback to ASCII chars
     LP_MARK_BATTERY="b"
@@ -42,6 +43,7 @@ else
     LP_MARK_SHORTEN_PATH=" ... "
     LP_MARK_PERM=":"
     LP_MARK_CLOUD="(^)"
+    LP_MARK_TERRAFORM="(T)"
 fi
 
 LP_MARK_BRACKET_OPEN=""  # open bracket
@@ -108,6 +110,9 @@ LP_COLOR_CLOUD_ENV_NOMINAL="$GREEN"
 LP_COLOR_CLOUD_ENV_WARN="$WARN_RED"
 LP_COLOR_CLOUD_ENV_CRIT="$CRIT_RED"
 LP_COLOR_CLOUD_ENV_DANGER="$DANGER_RED"
+
+# Terraform
+LP_COLOR_TERRAFORM="$PINK"
 
 # Battery
 LP_COLOR_CHARGING_ABOVE="$GREEN"      # charging and above threshold
