@@ -53,6 +53,66 @@ LP_PS1="${LP_PS1} ${LP_PWD}${LP_BRACKET_CLOSE}${LP_VENV}${LP_PROXY}"
 # is set.
 LP_PS1="${LP_PS1}${LP_VCS}"
 
+# Add K8S infos
+# Based on https://github.com/jonmosco/kube-ps1/blob/master/kube-ps1.sh
+# Only if LP_ENABLE_KUBERNETES equals 1 AND config file is readable
+if [[ $LP_ENABLE_KUBERNETES == 1 ]] && [[ -r ~/.kube/config ]]
+then
+    # kubectl can be very slow: caching its responses to file
+    _LP_KUBERNETES_CLUSTER_SAVED_FILE="/tmp/_LP_KUBERNETES_CLUSTER_${LOGNAME}"
+    _LP_KUBERNETES_CLUSTER_LAST=$(date +%s -r ~/.kube/config)
+
+    # Get infos and save to file
+    _update_k8s_infos(){
+        _LP_KUBERNETES_CLUSTER=$(kubectl config current-context 2>/dev/null)
+        if [[ ! -z $_LP_KUBERNETES_CLUSTER ]]
+        then
+            # We want a short cluster name
+            if [[ $LP_KUBERNETES_CLUSTER_SHORTEN == 1 ]]
+            then
+                _LP_KUBERNETES_CLUSTER=${_LP_KUBERNETES_CLUSTER%%.*}
+            fi
+
+            _LP_KUBERNETES_NAMESPACE=$(kubectl config view --minify --output 'jsonpath={..namespace}' 2>/dev/null)
+            _LP_KUBERNETES_NAMESPACE="${_LP_KUBERNETES_NAMESPACE:-default}"
+
+            # Save cluster config infos to file
+            echo -e "${_LP_KUBERNETES_CLUSTER_LAST} ${_LP_KUBERNETES_CLUSTER} ${_LP_KUBERNETES_NAMESPACE}" > $_LP_KUBERNETES_CLUSTER_SAVED_FILE
+        fi
+    }
+
+    # Use cached infos if possible
+    if [[ ! -f $_LP_KUBERNETES_CLUSTER_SAVED_FILE ]]
+    then
+        # no cached file, we need to update infos
+        _update_k8s_infos
+    else
+        # Cached file exist, get infos and check if needed update
+        while read timestamp cluster namespace
+        do
+            _timestamp=$timestamp
+            _LP_KUBERNETES_CLUSTER=$cluster
+            _LP_KUBERNETES_NAMESPACE=$namespace
+        done < $_LP_KUBERNETES_CLUSTER_SAVED_FILE
+
+        # Update cache if k8s config file has been modified
+        if [[ $_LP_KUBERNETES_CLUSTER_LAST -gt $_timestamp ]]
+        then
+            _update_k8s_infos
+        fi
+    fi
+
+    # Update prompt if context is set
+    if [[ ! -z $_LP_KUBERNETES_CLUSTER ]]
+    then
+        LP_PS1="${LP_PS1} ${LP_COLOR_KUBERNETES_SYMBOL}${LP_MARK_KUBERNETES}${LP_COLOR_KUBERNETES_CLUSTER}${_LP_KUBERNETES_CLUSTER}${NO_COL}"
+        if [[ $LP_ENABLE_KUBERNETES_NAMESPACE -eq 1 ]]
+        then
+            LP_PS1="${LP_PS1}:${LP_COLOR_KUBERNETES_NAMESPACE}${_LP_KUBERNETES_NAMESPACE}${NO_COL}"
+        fi
+    fi
+fi
+
 # Add TerraForm workspace info
 # Only if directory already handled by TF
 if [[ -d .terraform ]]

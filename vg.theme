@@ -26,6 +26,7 @@ if [[ "$(locale -k LC_CTYPE | sed -n 's/^charmap="\(.*\)"/\1/p')" == *"UTF-8"* ]
     LP_MARK_PERM=" ● "         # separator between host and path
     LP_MARK_CLOUD="🌪"         # prompt mark for cloud environment
     LP_MARK_TERRAFORM="⯄"      # prompt mark for Terraform Workspace
+    LP_MARK_KUBERNETES="⎈"     # prompt mark for Kubernetes
 else
     # If charset is anything else, fallback to ASCII chars
     LP_MARK_BATTERY="b"
@@ -44,6 +45,7 @@ else
     LP_MARK_PERM=":"
     LP_MARK_CLOUD="(^)"
     LP_MARK_TERRAFORM="(T)"
+    LP_MARK_KUBERNETES="k8s"
 fi
 
 LP_MARK_BRACKET_OPEN=""  # open bracket
@@ -113,6 +115,11 @@ LP_COLOR_CLOUD_ENV_DANGER="$DANGER_RED"
 
 # Terraform
 LP_COLOR_TERRAFORM="$PINK"
+
+# Kubernetes
+LP_COLOR_KUBERNETES_SYMBOL="$BOLD_BLUE"
+LP_COLOR_KUBERNETES_CLUSTER="$BOLD_BLUE"
+LP_COLOR_KUBERNETES_NAMESPACE="$CYAN"
 
 # Battery
 LP_COLOR_CHARGING_ABOVE="$GREEN"      # charging and above threshold

@@ -164,4 +164,11 @@ LP_ENABLE_SSH_COLORS=0
 # will be disabled
 LP_DISABLED_VCS_PATH=""
 
+# Allow showing Kubernetes symbol + cluster name + namespace
+LP_ENABLE_KUBERNETES=1
+# Keep only string until first "." found
+LP_KUBERNETES_CLUSTER_SHORTEN=1
+# Show namespace info after cluster
+LP_ENABLE_KUBERNETES_NAMESPACE=0
+
 # vim: set et sts=4 sw=4 tw=120 ft=sh:
