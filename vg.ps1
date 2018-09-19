@@ -66,8 +66,9 @@ then
     _update_k8s_infos(){
         # Not using kubectl command, but grep in the file, way faster.
         #_LP_KUBERNETES_CLUSTER=$(kubectl config current-context 2>/dev/null)
-        _LP_KUBERNETES_CLUSTER=$(grep current-context ~/.kube/config|cut -c 19-)
-        _LP_KUBERNETES_CLUSTER=${_LP_KUBERNETES_CLUSTER%\"}
+        _LP_KUBERNETES_CLUSTER=$(grep current-context ~/.kube/config|cut -c 18-)
+        _LP_KUBERNETES_CLUSTER=${_LP_KUBERNETES_CLUSTER##\"} # remove first "
+        _LP_KUBERNETES_CLUSTER=${_LP_KUBERNETES_CLUSTER%%\"} # remove trailing "
         if [[ ! -z $_LP_KUBERNETES_CLUSTER ]]
         then
             # We want a short cluster name
