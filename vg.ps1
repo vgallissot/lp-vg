@@ -75,6 +75,7 @@ then
             if [[ $LP_KUBERNETES_CLUSTER_SHORTEN == 1 ]]
             then
                 _LP_KUBERNETES_CLUSTER=${_LP_KUBERNETES_CLUSTER%%.*}
+                _LP_KUBERNETES_CLUSTER=${_LP_KUBERNETES_CLUSTER##*/}
             fi
 
             _LP_KUBERNETES_NAMESPACE=$(kubectl config view --minify --output 'jsonpath={..namespace}' 2>/dev/null)
