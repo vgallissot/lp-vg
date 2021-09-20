@@ -78,7 +78,7 @@ then
                 _LP_KUBERNETES_CLUSTER=${_LP_KUBERNETES_CLUSTER##*/}
             fi
 
-            _LP_KUBERNETES_NAMESPACE=$(kubectl config view --minify --output 'jsonpath={..namespace}' 2>/dev/null)
+            _LP_KUBERNETES_NAMESPACE=$(timeout 1s kubectl config view --minify --output 'jsonpath={..namespace}' 2>/dev/null)
             _LP_KUBERNETES_NAMESPACE="${_LP_KUBERNETES_NAMESPACE:-default}"
 
             # Save cluster config infos to file
@@ -122,7 +122,7 @@ fi
 # Only if directory already handled by TF
 if [[ -d .terraform ]]
 then
-    _TERRAFORM_WORKSPACE=$(terraform workspace show)
+    _TERRAFORM_WORKSPACE=$(timeout 1s terraform workspace show 2>/dev/null)
     LP_PS1="${LP_PS1} {${LP_COLOR_TERRAFORM}${LP_MARK_TERRAFORM} ${_TERRAFORM_WORKSPACE}${NO_COL}}"
 fi
 
